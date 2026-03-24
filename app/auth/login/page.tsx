@@ -2,15 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createBrowserClient } from "@supabase/ssr";
+import { supabase } from "@/utils/supabaseClient";
 
 export default function LoginPage() {
   const router = useRouter();
-
-  const supabase = createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,6 +24,7 @@ export default function LoginPage() {
       return;
     }
 
+    // بعد تسجيل الدخول، الجلسة تُخزن تلقائياً عبر middleware
     router.push("/dashboard");
   }
 
