@@ -24,7 +24,6 @@ export default function LoginPage() {
       return;
     }
 
-    // بعد تسجيل الدخول، الجلسة تُخزن تلقائياً عبر middleware
     router.push("/dashboard");
   }
 
