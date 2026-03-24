@@ -9,6 +9,10 @@ import { supabase } from "@/lib/supabaseClient";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 export default function DashboardHome() {
+
+  // 🟦 عدد المستخدمين (جديد)
+  const [usersCount, setUsersCount] = useState(0);
+
   // بيانات الرسم البياني
   const [chartData] = useState({
     series: [
@@ -55,6 +59,21 @@ export default function DashboardHome() {
     fetchProjects();
   }, []);
 
+  // 🟩 جلب عدد المستخدمين من Supabase (جديد)
+  useEffect(() => {
+    async function fetchUsersCount() {
+      const { count, error } = await supabase
+        .from("users") // ← غيّر الاسم إذا كان جدولك اسمه مختلف
+        .select("*", { count: "exact", head: true });
+
+      if (!error && typeof count === "number") {
+        setUsersCount(count);
+      }
+    }
+
+    fetchUsersCount();
+  }, []);
+
   return (
     <div className="space-y-10 p-6">
       {/* العنوان */}
@@ -70,7 +89,9 @@ export default function DashboardHome() {
           </div>
           <div>
             <p className="text-gray-500 dark:text-gray-400">Users</p>
-            <p className="text-2xl font-bold">120</p>
+
+            {/* 🟦 العدد الحقيقي بدل 120 */}
+            <p className="text-2xl font-bold">{usersCount}</p>
           </div>
         </div>
 
