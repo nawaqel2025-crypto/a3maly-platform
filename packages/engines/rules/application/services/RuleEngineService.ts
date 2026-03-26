@@ -1,0 +1,6 @@
+export class RuleEngineService {
+  async evaluate(input: any) {
+    // ”Ì „ ≈÷«›… «·„‰ÿﬁ ·«Õﬁ«
+    return null;
+  }
+}

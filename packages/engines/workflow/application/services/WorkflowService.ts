@@ -1,0 +1,11 @@
+export class WorkflowService {
+  async startWorkflow(input: any) {
+    // ”Ì „ ≈÷«›… «·„‰ÿﬁ ·«Õﬁ«
+    return null;
+  }
+
+  async approveStep(input: any) {
+    // ”Ì „ ≈÷«›… «·„‰ÿﬁ ·«Õﬁ«
+    return null;
+  }
+}
