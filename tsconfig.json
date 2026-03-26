@@ -5,28 +5,17 @@
     "rootDir": "./",
     "baseUrl": "./",
     "paths": {
-      "@core/*": [
-        "packages/core/*"
-      ],
-      "@domain/*": [
-        "packages/domain/*"
-      ],
-      "@engines/*": [
-        "packages/engines/*"
-      ],
-      "@infra/*": [
-        "infra/*"
-      ]
+      "@core/*": ["packages/core/*"],
+      "@domain/*": ["packages/domain/*"],
+      "@engines/*": ["packages/engines/*"],
+      "@infra/*": ["infra/*"],
+      "@/*": ["./*"]
     },
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": false,
     "skipLibCheck": true,
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "noEmit": true,
     "incremental": true,
@@ -44,9 +33,8 @@
     "src",
     "packages",
     "infra",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "lib"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
