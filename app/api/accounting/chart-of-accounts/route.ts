@@ -1,8 +1,8 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 import {
   getAllAccounts,
-  createAccount
-} from '@/accounting/settings/chartOfAccounts/accountRepository';
+  createAccount,
+} from "@/accounting/settings/chartOfAccounts/accountRepository";
 
 export async function GET() {
   try {
@@ -10,7 +10,7 @@ export async function GET() {
     return NextResponse.json({ data: accounts });
   } catch (error: any) {
     return NextResponse.json(
-      { error: error.message ?? 'Failed to fetch accounts' },
+      { error: error.message ?? "Failed to fetch accounts" },
       { status: 500 }
     );
   }
@@ -30,13 +30,13 @@ export async function POST(req: Request) {
       allowPosting: body.allowPosting ?? true,
       isActive: body.isActive ?? true,
       createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
     });
 
     return NextResponse.json({ data: account }, { status: 201 });
   } catch (error: any) {
     return NextResponse.json(
-      { error: error.message ?? 'Failed to create account' },
+      { error: error.message ?? "Failed to create account" },
       { status: 500 }
     );
   }

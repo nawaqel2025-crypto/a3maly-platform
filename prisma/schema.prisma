@@ -14,3 +14,25 @@ model User {
   role      String   @default("user")
   createdAt DateTime @default(now())
 }
+
+model ReceiptVoucher {
+  id          Int             @id @default(autoincrement())
+  voucherNo   String
+  date        DateTime
+  paymentType String
+  notes       String?
+  createdAt   DateTime        @default(now())
+
+  entries     ReceiptEntry[]
+}
+
+model ReceiptEntry {
+  id        Int             @id @default(autoincrement())
+  account   String
+  debit     Float
+  credit    Float
+
+  voucherId Int
+  voucher   ReceiptVoucher  @relation(fields: [voucherId], references: [id])
+}
+

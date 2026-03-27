@@ -4,9 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { 
   LayoutDashboard, 
-  Users, 
   FolderKanban, 
-  ClipboardList, 
   FileText, 
   ChevronDown,
   ChevronRight,
@@ -20,7 +18,7 @@ export default function Sidebar() {
     settings: false,
   });
 
-  const toggle = (key: string) => {
+  const toggle = (key: "accounting" | "projects" | "settings") => {
     setOpenMenu((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
@@ -32,6 +30,7 @@ export default function Sidebar() {
 
       <nav className="flex-1 overflow-y-auto p-3 space-y-2">
 
+        {/* لوحة التحكم */}
         <Link
           href="/dashboard"
           className="flex items-center gap-3 p-2 rounded-md hover:bg-gray-100 text-gray-700"
@@ -40,6 +39,7 @@ export default function Sidebar() {
           <span>لوحة التحكم</span>
         </Link>
 
+        {/* النظام المحاسبي */}
         <div>
           <button
             onClick={() => toggle("accounting")}
@@ -54,19 +54,82 @@ export default function Sidebar() {
 
           {openMenu.accounting && (
             <div className="ml-8 mt-1 space-y-1">
-              <Link href="/dashboard/accounting/journal" className="block p-2 hover:bg-gray-100 rounded-md">
+
+              <Link 
+                href="/modules/accounting/chart-of-accounts/1" 
+                className="block p-2 hover:bg-gray-100 rounded-md"
+              >
+                شجرة الحسابات
+              </Link>
+
+              <Link 
+                href="/dashboard/accounting/journal" 
+                className="block p-2 hover:bg-gray-100 rounded-md"
+              >
                 القيود اليومية
               </Link>
-              <Link href="/dashboard/accounting/ledger" className="block p-2 hover:bg-gray-100 rounded-md">
+
+              <Link 
+                href="/dashboard/accounting/manual-entry" 
+                className="block p-2 hover:bg-gray-100 rounded-md"
+              >
+                قيد يومية يدوي
+              </Link>
+
+              <Link 
+                href="/dashboard/accounting/receipt-voucher" 
+                className="block p-2 hover:bg-gray-100 rounded-md"
+              >
+                سند قبض
+              </Link>
+
+              <Link 
+                href="/dashboard/accounting/payment-voucher" 
+                className="block p-2 hover:bg-gray-100 rounded-md"
+              >
+                سند صرف
+              </Link>
+
+              <Link 
+                href="/ledger" 
+                className="block p-2 hover:bg-gray-100 rounded-md"
+              >
                 دفتر الأستاذ
               </Link>
-              <Link href="/dashboard/accounting/reports" className="block p-2 hover:bg-gray-100 rounded-md">
-                التقارير المالية
+
+              <Link 
+                href="/trial-balance" 
+                className="block p-2 hover:bg-gray-100 rounded-md"
+              >
+                ميزان المراجعة
               </Link>
+
+              <Link 
+                href="/income-statement" 
+                className="block p-2 hover:bg-gray-100 rounded-md"
+              >
+                قائمة الدخل
+              </Link>
+
+              <Link 
+                href="/balance-sheet" 
+                className="block p-2 hover:bg-gray-100 rounded-md"
+              >
+                الميزانية العمومية
+              </Link>
+
+              <Link 
+                href="/cash-flow" 
+                className="block p-2 hover:bg-gray-100 rounded-md"
+              >
+                التدفقات النقدية
+              </Link>
+
             </div>
           )}
         </div>
 
+        {/* المشاريع */}
         <div>
           <button
             onClick={() => toggle("projects")}
@@ -94,6 +157,7 @@ export default function Sidebar() {
           )}
         </div>
 
+        {/* الإعدادات */}
         <div>
           <button
             onClick={() => toggle("settings")}
