@@ -8,7 +8,10 @@ import {
   FileText, 
   ChevronDown,
   ChevronRight,
-  Settings
+  Settings,
+  ShoppingCart,
+  Users,
+  Boxes
 } from "lucide-react";
 
 export default function Sidebar() {
@@ -16,9 +19,12 @@ export default function Sidebar() {
     accounting: false,
     projects: false,
     settings: false,
+    sales: false,
+    inventory: false,
+    customers: false,
   });
 
-  const toggle = (key: "accounting" | "projects" | "settings") => {
+  const toggle = (key) => {
     setOpenMenu((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
@@ -39,7 +45,7 @@ export default function Sidebar() {
           <span>لوحة التحكم</span>
         </Link>
 
-        {/* النظام المحاسبي */}
+        {/* إدارة الحسابات */}
         <div>
           <button
             onClick={() => toggle("accounting")}
@@ -47,7 +53,7 @@ export default function Sidebar() {
           >
             <span className="flex items-center gap-3">
               <FileText size={20} />
-              <span>النظام المحاسبي</span>
+              <span>إدارة الحسابات</span>
             </span>
             {openMenu.accounting ? <ChevronDown /> : <ChevronRight />}
           </button>
@@ -55,73 +61,43 @@ export default function Sidebar() {
           {openMenu.accounting && (
             <div className="ml-8 mt-1 space-y-1">
 
-              <Link 
-                href="/modules/accounting/chart-of-accounts/1" 
-                className="block p-2 hover:bg-gray-100 rounded-md"
-              >
+              <Link href="/modules/accounting/chart-of-accounts/1" className="block p-2 hover:bg-gray-100 rounded-md">
                 شجرة الحسابات
               </Link>
 
-              <Link 
-                href="/dashboard/accounting/journal" 
-                className="block p-2 hover:bg-gray-100 rounded-md"
-              >
+              <Link href="/dashboard/accounting/journal" className="block p-2 hover:bg-gray-100 rounded-md">
                 القيود اليومية
               </Link>
 
-              <Link 
-                href="/dashboard/accounting/manual-entry" 
-                className="block p-2 hover:bg-gray-100 rounded-md"
-              >
+              <Link href="/dashboard/accounting/manual-entry" className="block p-2 hover:bg-gray-100 rounded-md">
                 قيد يومية يدوي
               </Link>
 
-              <Link 
-                href="/dashboard/accounting/receipt-voucher" 
-                className="block p-2 hover:bg-gray-100 rounded-md"
-              >
+              <Link href="/dashboard/accounting/receipt-voucher" className="block p-2 hover:bg-gray-100 rounded-md">
                 سند قبض
               </Link>
 
-              <Link 
-                href="/dashboard/accounting/payment-voucher" 
-                className="block p-2 hover:bg-gray-100 rounded-md"
-              >
+              <Link href="/dashboard/accounting/payment-voucher" className="block p-2 hover:bg-gray-100 rounded-md">
                 سند صرف
               </Link>
 
-              <Link 
-                href="/ledger" 
-                className="block p-2 hover:bg-gray-100 rounded-md"
-              >
+              <Link href="/ledger" className="block p-2 hover:bg-gray-100 rounded-md">
                 دفتر الأستاذ
               </Link>
 
-              <Link 
-                href="/trial-balance" 
-                className="block p-2 hover:bg-gray-100 rounded-md"
-              >
+              <Link href="/trial-balance" className="block p-2 hover:bg-gray-100 rounded-md">
                 ميزان المراجعة
               </Link>
 
-              <Link 
-                href="/income-statement" 
-                className="block p-2 hover:bg-gray-100 rounded-md"
-              >
+              <Link href="/income-statement" className="block p-2 hover:bg-gray-100 rounded-md">
                 قائمة الدخل
               </Link>
 
-              <Link 
-                href="/balance-sheet" 
-                className="block p-2 hover:bg-gray-100 rounded-md"
-              >
+              <Link href="/balance-sheet" className="block p-2 hover:bg-gray-100 rounded-md">
                 الميزانية العمومية
               </Link>
 
-              <Link 
-                href="/cash-flow" 
-                className="block p-2 hover:bg-gray-100 rounded-md"
-              >
+              <Link href="/cash-flow" className="block p-2 hover:bg-gray-100 rounded-md">
                 التدفقات النقدية
               </Link>
 
@@ -129,7 +105,7 @@ export default function Sidebar() {
           )}
         </div>
 
-        {/* المشاريع */}
+        {/* إدارة المشاريع */}
         <div>
           <button
             onClick={() => toggle("projects")}
@@ -137,7 +113,7 @@ export default function Sidebar() {
           >
             <span className="flex items-center gap-3">
               <FolderKanban size={20} />
-              <span>المشاريع</span>
+              <span>إدارة المشاريع</span>
             </span>
             {openMenu.projects ? <ChevronDown /> : <ChevronRight />}
           </button>
@@ -147,11 +123,79 @@ export default function Sidebar() {
               <Link href="/dashboard/projects" className="block p-2 hover:bg-gray-100 rounded-md">
                 قائمة المشاريع
               </Link>
-              <Link href="/dashboard/tasks" className="block p-2 hover:bg-gray-100 rounded-md">
-                المهام
+
+              <Link href="/dashboard/projects/create" className="block p-2 hover:bg-gray-100 rounded-md">
+                إنشاء مشروع
               </Link>
-              <Link href="/dashboard/clients" className="block p-2 hover:bg-gray-100 rounded-md">
-                العملاء
+            </div>
+          )}
+        </div>
+
+        {/* إدارة المبيعات */}
+        <div>
+          <button
+            onClick={() => toggle("sales")}
+            className="flex items-center justify-between w-full p-2 rounded-md hover:bg-gray-100 text-gray-700"
+          >
+            <span className="flex items-center gap-3">
+              <ShoppingCart size={20} />
+              <span>إدارة المبيعات</span>
+            </span>
+            {openMenu.sales ? <ChevronDown /> : <ChevronRight />}
+          </button>
+
+          {openMenu.sales && (
+            <div className="ml-8 mt-1 space-y-1">
+              <Link href="/dashboard/sales/invoices" className="block p-2 hover:bg-gray-100 rounded-md">
+                الفواتير
+              </Link>
+
+              <Link href="/dashboard/sales/invoices/create" className="block p-2 hover:bg-gray-100 rounded-md">
+                إنشاء فاتورة
+              </Link>
+            </div>
+          )}
+        </div>
+
+        {/* إدارة المخزون */}
+        <div>
+          <button
+            onClick={() => toggle("inventory")}
+            className="flex items-center justify-between w-full p-2 rounded-md hover:bg-gray-100 text-gray-700"
+          >
+            <span className="flex items-center gap-3">
+              <Boxes size={20} />
+              <span>إدارة المخزون</span>
+            </span>
+            {openMenu.inventory ? <ChevronDown /> : <ChevronRight />}
+          </button>
+
+          {openMenu.inventory && (
+            <div className="ml-8 mt-1 space-y-1">
+              <Link href="/dashboard/inventory/items" className="block p-2 hover:bg-gray-100 rounded-md">
+                الأصناف
+              </Link>
+            </div>
+          )}
+        </div>
+
+        {/* إدارة العملاء */}
+        <div>
+          <button
+            onClick={() => toggle("customers")}
+            className="flex items-center justify-between w-full p-2 rounded-md hover:bg-gray-100 text-gray-700"
+          >
+            <span className="flex items-center gap-3">
+              <Users size={20} />
+              <span>إدارة العملاء</span>
+            </span>
+            {openMenu.customers ? <ChevronDown /> : <ChevronRight />}
+          </button>
+
+          {openMenu.customers && (
+            <div className="ml-8 mt-1 space-y-1">
+              <Link href="/dashboard/customers" className="block p-2 hover:bg-gray-100 rounded-md">
+                قائمة العملاء
               </Link>
             </div>
           )}

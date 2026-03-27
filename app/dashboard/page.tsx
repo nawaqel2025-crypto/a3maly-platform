@@ -9,7 +9,7 @@ const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 export default function DashboardHome() {
   const [usersCount, setUsersCount] = useState(0);
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState<any[]>([]);
   const [loadingProjects, setLoadingProjects] = useState(true);
 
   const [chartData] = useState({
@@ -20,14 +20,16 @@ export default function DashboardHome() {
       },
     ],
     options: {
-      chart: { type: "area", height: 350, toolbar: { show: false } },
-      colors: ["#2563eb"],
+      chart: { type: "area", height: 200, toolbar: { show: false } },
+      colors: ["#3b82f6"],
       dataLabels: { enabled: false },
-      stroke: { curve: "smooth" },
+      stroke: { curve: "smooth", width: 2 },
       xaxis: {
         categories: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+        labels: { style: { colors: "#6b7280" } }
       },
-      grid: { borderColor: "#e5e7eb" },
+      yaxis: { labels: { style: { colors: "#6b7280" } } },
+      grid: { borderColor: "#f1f5f9" },
     },
   });
 
@@ -52,56 +54,57 @@ export default function DashboardHome() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50 p-8 space-y-10">
+    <div className="bg-slate-50 p-6 space-y-4 w-full">
 
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">A3maly Dashboard</h1>
+        <h1 className="text-2xl font-semibold text-slate-800">A3maly Platform</h1>
         <p className="text-slate-500 mt-1">Modern SaaS Accounting Overview</p>
       </div>
 
       {/* Top Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-0">
 
         <StatCard
           title="Users"
           value={usersCount}
-          icon={<Users size={26} className="text-blue-600" />}
-          bg="bg-blue-50"
+          icon={<Users size={18} className="text-blue-600" />}
         />
 
         <StatCard
           title="Orders"
           value="45"
-          icon={<ShoppingCart size={26} className="text-green-600" />}
-          bg="bg-green-50"
+          icon={<ShoppingCart size={18} className="text-green-600" />}
         />
 
         <StatCard
           title="Revenue"
           value="$12,400"
-          icon={<DollarSign size={26} className="text-yellow-600" />}
-          bg="bg-yellow-50"
+          icon={<DollarSign size={18} className="text-yellow-600" />}
         />
 
         <StatCard
           title="Active"
           value="89"
-          icon={<Activity size={26} className="text-purple-600" />}
-          bg="bg-purple-50"
+          icon={<Activity size={18} className="text-purple-600" />}
         />
 
       </div>
 
       {/* Chart */}
-      <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-        <h2 className="text-lg font-semibold mb-4">Revenue Growth</h2>
-        <Chart options={chartData.options} series={chartData.series} type="area" height={350} />
+      <div className="bg-white p-5 rounded-2xl shadow-sm">
+        <h2 className="text-md font-medium text-slate-700 mb-2">Revenue Growth</h2>
+        <Chart
+          options={chartData.options}
+          series={chartData.series}
+          type="area"
+          height={200}
+        />
       </div>
 
       {/* Projects */}
-      <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-        <h2 className="text-xl font-semibold mb-4">My Projects</h2>
+      <div className="bg-white p-5 rounded-2xl shadow-sm">
+        <h2 className="text-lg font-medium text-slate-700 mb-3">My Projects</h2>
 
         {loadingProjects && <p className="text-slate-500">Loading...</p>}
 
@@ -110,14 +113,14 @@ export default function DashboardHome() {
         )}
 
         {!loadingProjects && projects.length > 0 && (
-          <ul className="space-y-4">
+          <ul className="space-y-3">
             {projects.map((project) => (
               <li
                 key={project.id}
-                className="p-4 rounded-lg border border-slate-200 hover:bg-slate-50 transition"
+                className="p-4 rounded-xl bg-slate-50 hover:bg-slate-100 transition"
               >
-                <h3 className="font-semibold text-lg">{project.name}</h3>
-                <p className="text-slate-500">{project.description}</p>
+                <h3 className="font-medium text-slate-800">{project.name}</h3>
+                <p className="text-slate-500 text-sm">{project.description}</p>
               </li>
             ))}
           </ul>
@@ -127,13 +130,15 @@ export default function DashboardHome() {
   );
 }
 
-function StatCard({ title, value, icon, bg }) {
+function StatCard({ title, value, icon }) {
   return (
-    <div className="p-6 bg-white rounded-xl shadow-sm border border-slate-200 flex items-center gap-4">
-      <div className={`p-3 rounded-full ${bg}`}>{icon}</div>
+    <div className="p-4 bg-white rounded-2xl shadow-sm flex items-center gap-4">
+      <div className="p-2.5 rounded-xl bg-slate-100">
+        {icon}
+      </div>
       <div>
-        <p className="text-slate-500 text-sm">{title}</p>
-        <p className="text-2xl font-bold">{value}</p>
+        <p className="text-slate-500 text-xs">{title}</p>
+        <p className="text-xl font-semibold text-slate-800">{value}</p>
       </div>
     </div>
   );
