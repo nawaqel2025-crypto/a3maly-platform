@@ -1,19 +1,23 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/navbar";
+import Sidebar from "./sidebar";
+import GlobalCommand from "@/components/global-command";
 
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "أعمال",
-  description: "منصة أعمال تعمل بنجاح",
+export const metadata = {
+  title: "منصة أعمالي",
+  description: "ERP عربي حديث بمستوى عالمي",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }) {
   return (
     <html lang="ar" dir="rtl">
-      <body className={inter.className}>
-        {children}
+      <body className="flex">
+        <Sidebar />
+        <div className="flex-1 flex flex-col">
+          <Navbar />
+          <GlobalCommand />
+          <main className="p-4">{children}</main>
+        </div>
       </body>
     </html>
   );

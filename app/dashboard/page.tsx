@@ -1,145 +1,112 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import dynamic from "next/dynamic";
-import { Users, ShoppingCart, DollarSign, Activity } from "lucide-react";
-import { supabase } from "@/lib/supabaseClient";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import {
+  BarChart, Bar, LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer
+} from "recharts";
 
-const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
+const revenueData = [
+  { month: "يناير", value: 2400 },
+  { month: "فبراير", value: 3200 },
+  { month: "مارس", value: 4100 },
+  { month: "أبريل", value: 5300 },
+  { month: "مايو", value: 6200 },
+  { month: "يونيو", value: 7100 },
+];
 
-export default function DashboardHome() {
-  const [usersCount, setUsersCount] = useState(0);
-  const [projects, setProjects] = useState<any[]>([]);
-  const [loadingProjects, setLoadingProjects] = useState(true);
+const modules = [
+  { name: "الحسابات", href: "/modules/accounting", color: "from-blue-500 to-blue-700" },
+  { name: "المبيعات", href: "/dashboard/sales", color: "from-purple-500 to-purple-700" },
+  { name: "المشتريات", href: "/purchasing", color: "from-pink-500 to-pink-700" },
+  { name: "المخزون", href: "/dashboard/inventory", color: "from-green-500 to-green-700" },
+  { name: "المشاريع", href: "/dashboard/projects", color: "from-yellow-500 to-yellow-700" },
+  { name: "العملاء", href: "/dashboard/customers", color: "from-teal-500 to-teal-700" },
+  { name: "الموردين", href: "/suppliers", color: "from-red-500 to-red-700" },
+  { name: "التقارير", href: "/reports", color: "from-indigo-500 to-indigo-700" },
+  { name: "الإعدادات", href: "/dashboard/settings", color: "from-gray-500 to-gray-700" },
+];
 
-  const [chartData] = useState({
-    series: [
-      {
-        name: "Revenue",
-        data: [1200, 1900, 3000, 5000, 4200, 6100, 7000, 8500, 9000, 11000, 13000, 15000],
-      },
-    ],
-    options: {
-      chart: { type: "area", height: 200, toolbar: { show: false } },
-      colors: ["#3b82f6"],
-      dataLabels: { enabled: false },
-      stroke: { curve: "smooth", width: 2 },
-      xaxis: {
-        categories: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
-        labels: { style: { colors: "#6b7280" } }
-      },
-      yaxis: { labels: { style: { colors: "#6b7280" } } },
-      grid: { borderColor: "#f1f5f9" },
-    },
-  });
-
-  useEffect(() => {
-    async function fetchProjects() {
-      const { data } = await supabase.from("projects").select("*");
-      setProjects(data || []);
-      setLoadingProjects(false);
-    }
-    fetchProjects();
-  }, []);
-
-  useEffect(() => {
-    async function fetchUsersCount() {
-      const { count } = await supabase
-        .from("users")
-        .select("*", { count: "exact", head: true });
-
-      if (typeof count === "number") setUsersCount(count);
-    }
-    fetchUsersCount();
-  }, []);
-
+export default function Dashboard() {
   return (
-    <div className="bg-slate-50 p-6 space-y-4 w-full">
+    <div className="space-y-12">
 
-      {/* Header */}
+      {/* العنوان */}
+      <motion.h1
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="text-3xl font-bold text-white"
+      >
+        لوحة التحكم
+      </motion.h1>
+
+      {/* KPIs */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        {[
+          { label: "إجمالي الإيرادات", value: "12,400 ر.س", color: "text-blue-400" },
+          { label: "عدد العملاء", value: "89", color: "text-green-400" },
+          { label: "عدد الموردين", value: "42", color: "text-red-400" },
+        ].map((item, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: i * 0.2, duration: 0.5 }}
+            className="p-6 rounded-xl bg-white/10 backdrop-blur border border-white/10 shadow-lg"
+          >
+            <div className="text-gray-300 text-sm">{item.label}</div>
+            <div className={`text-3xl font-bold mt-2 ${item.color}`}>{item.value}</div>
+          </motion.div>
+        ))}
+
+      </div>
+
+      {/* الوحدات الرئيسية */}
       <div>
-        <h1 className="text-2xl font-semibold text-slate-800">A3maly Platform</h1>
-        <p className="text-slate-500 mt-1">Modern SaaS Accounting Overview</p>
-      </div>
+        <h2 className="text-xl font-semibold mb-4 text-white">الوحدات الرئيسية</h2>
 
-      {/* Top Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-0">
-
-        <StatCard
-          title="Users"
-          value={usersCount}
-          icon={<Users size={18} className="text-blue-600" />}
-        />
-
-        <StatCard
-          title="Orders"
-          value="45"
-          icon={<ShoppingCart size={18} className="text-green-600" />}
-        />
-
-        <StatCard
-          title="Revenue"
-          value="$12,400"
-          icon={<DollarSign size={18} className="text-yellow-600" />}
-        />
-
-        <StatCard
-          title="Active"
-          value="89"
-          icon={<Activity size={18} className="text-purple-600" />}
-        />
-
-      </div>
-
-      {/* Chart */}
-      <div className="bg-white p-5 rounded-2xl shadow-sm">
-        <h2 className="text-md font-medium text-slate-700 mb-2">Revenue Growth</h2>
-        <Chart
-          options={chartData.options}
-          series={chartData.series}
-          type="area"
-          height={200}
-        />
-      </div>
-
-      {/* Projects */}
-      <div className="bg-white p-5 rounded-2xl shadow-sm">
-        <h2 className="text-lg font-medium text-slate-700 mb-3">My Projects</h2>
-
-        {loadingProjects && <p className="text-slate-500">Loading...</p>}
-
-        {!loadingProjects && projects.length === 0 && (
-          <p className="text-slate-500">No projects yet.</p>
-        )}
-
-        {!loadingProjects && projects.length > 0 && (
-          <ul className="space-y-3">
-            {projects.map((project) => (
-              <li
-                key={project.id}
-                className="p-4 rounded-xl bg-slate-50 hover:bg-slate-100 transition"
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {modules.map((m, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+            >
+              <Link
+                href={m.href}
+                className={`block p-6 rounded-xl bg-gradient-to-br ${m.color} text-white font-semibold shadow-lg hover:scale-105 transition`}
               >
-                <h3 className="font-medium text-slate-800">{project.name}</h3>
-                <p className="text-slate-500 text-sm">{project.description}</p>
-              </li>
-            ))}
-          </ul>
-        )}
+                {m.name}
+              </Link>
+            </motion.div>
+          ))}
+        </div>
       </div>
-    </div>
-  );
-}
 
-function StatCard({ title, value, icon }) {
-  return (
-    <div className="p-4 bg-white rounded-2xl shadow-sm flex items-center gap-4">
-      <div className="p-2.5 rounded-xl bg-slate-100">
-        {icon}
-      </div>
-      <div>
-        <p className="text-slate-500 text-xs">{title}</p>
-        <p className="text-xl font-semibold text-slate-800">{value}</p>
-      </div>
+      {/* الرسم البياني */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        className="p-6 rounded-xl bg-white/10 backdrop-blur border border-white/10 shadow-lg"
+      >
+        <h2 className="text-xl font-semibold mb-4 text-white">نمو الإيرادات</h2>
+
+        <div className="h-64">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={revenueData}>
+              <XAxis dataKey="month" stroke="#ccc" />
+              <YAxis stroke="#ccc" />
+              <Tooltip />
+              <Line type="monotone" dataKey="value" stroke="#4f9cff" strokeWidth={3} />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      </motion.div>
+
     </div>
   );
 }

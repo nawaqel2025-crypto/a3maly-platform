@@ -1,9 +1,9 @@
 export const CUSTOMER_TYPES = [
-  { value: "individual", label: "İÑÏ" },
-  { value: "company", label: "ÔÑßÉ" },
+  { value: "individual", label: "ÙØ±Ø¯" },
+  { value: "company", label: "Ø´Ø±ÙƒØ©" },
 ] as const;
 
 export const TAX_PROFILE_TYPES = [
-  { value: "resident", label: "ãŞíã" },
-  { value: "non_resident", label: "ÛíÑ ãŞíã" },
+  { value: "resident", label: "Ù…Ù‚ÙŠÙ…" },
+  { value: "non_resident", label: "ØºÙŠØ± Ù…Ù‚ÙŠÙ…" },
 ] as const;

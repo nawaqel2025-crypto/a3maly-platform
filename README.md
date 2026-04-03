@@ -37,5 +37,5 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
 #a3maly-platform
-منصّة أعمالي — نظام ERP سحابي متكامل
+ظ…ظ†طµظ‘ط© ط£ط¹ظ…ط§ظ„ظٹ â€” ظ†ط¸ط§ظ… ERP ط³ط­ط§ط¨ظٹ ظ…طھظƒط§ظ…ظ„
  ddefe954b7c7c975844736e4cc1933a167ecae92
