@@ -1,24 +1,17 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "commonjs",
-    "rootDir": "./",
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
-      "@core/*": ["packages/core/*"],
-      "@domain/*": ["packages/domain/*"],
-      "@engines/*": ["packages/engines/*"],
-      "@infra/*": ["infra/*"],
       "@/*": ["./*"]
     },
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": false,
-    "skipLibCheck": true,
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
     "noEmit": true,
     "incremental": true,
+    "module": "esnext",
+    "esModuleInterop": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -30,11 +23,10 @@
     ]
   },
   "include": [
-    "src",
-    "packages",
-    "infra",
+    "next-env.d.ts",
     ".next/types/**/*.ts",
-    "lib"
+    "**/*.ts",
+    "**/*.tsx"
   ],
   "exclude": ["node_modules"]
 }

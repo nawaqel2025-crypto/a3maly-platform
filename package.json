@@ -2,28 +2,34 @@
   "name": "a3maly-platform",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
+    "a3maly:full": "node tools/a3maly-engine/full-cycle.ts",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
-    "@prisma/client": "^7.6.0",
+    "@prisma/adapter-pg": "^7.7.0",
+    "@prisma/client": "^7.7.0",
     "@supabase/ssr": "^0.9.0",
-    "@supabase/supabase-js": "^2.99.3",
+    "@supabase/supabase-js": "^2.103.0",
     "apexcharts": "^5.10.4",
     "framer-motion": "^12.38.0",
     "lucide-react": "^1.0.1",
     "next": "14.2.3",
+    "next-intl": "^4.9.1",
+    "pg": "^8.20.0",
     "react": "18.2.0",
     "react-apexcharts": "^2.1.0",
     "react-dom": "18.2.0",
+    "react-icons": "^5.6.0",
     "recharts": "^3.8.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^20.19.39",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.27",
@@ -32,6 +38,7 @@
     "postcss": "^8.5.8",
     "prisma": "^7.6.0",
     "tailwindcss": "^4.2.2",
-    "typescript": "^5"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   }
 }

@@ -1,0 +1,6 @@
+{
+  "name": "customers",
+  "label": "Customers",
+  "icon": "Users",
+  "schema": "Customer"
+}

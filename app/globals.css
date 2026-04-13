@@ -1,8 +1,8 @@
-@import "tailwindcss";
-
 /* ----------------------------------------------------
    🌍 Design System — Platform Tokens
 ---------------------------------------------------- */
+
+@import "tailwindcss";
 
 /* ------------------------------
    Light Mode
@@ -55,7 +55,6 @@
   --duration-normal: 250ms;
   --duration-slow: 350ms;
 
-  /* Smooth transitions */
   transition:
     background-color var(--duration-normal) var(--ease),
     color var(--duration-normal) var(--ease),
@@ -92,4 +91,23 @@ body {
   transition:
     background-color var(--duration-normal) var(--ease),
     color var(--duration-normal) var(--ease);
+}
+
+/* ------------------------------
+   Tailwind
+------------------------------ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ----------------------------------------------------
+   English digits for all date/time inputs
+---------------------------------------------------- */
+input[type="date"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="time"] {
+  direction: ltr !important;
+  font-family: "Segoe UI", sans-serif !important;
+  font-variant-numeric: normal !important;
 }

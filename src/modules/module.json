@@ -1,0 +1,17 @@
+@"
+{
+  "module": "customers",
+  "label": "Customers",
+  "table": "customers",
+  "primaryKey": "id",
+  "fields": [
+    { "name": "id", "type": "uuid", "label": "ID", "readonly": true },
+    { "name": "company_id", "type": "uuid", "label": "Company", "required": true },
+    { "name": "name", "type": "text", "label": "Name", "required": true },
+    { "name": "email", "type": "text", "label": "Email" },
+    { "name": "phone", "type": "text", "label": "Phone" },
+    { "name": "address", "type": "text", "label": "Address" },
+    { "name": "created_at", "type": "timestamp", "label": "Created At", "readonly": true }
+  ]
+}
+"@ | Set-Content src\modules\customers\module.json
