@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { FiSave } from "react-icons/fi";
+import Button from "@/components/ui/button";
+import Card from "@/components/ui/card";
+import Input from "@/components/ui/input";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -71,76 +74,64 @@ export default function DefaultAccountsPage() {
   }, []);
 
   if (loading)
-    return <p className="text-gray-900 dark:text-gray-100">جاري التحميل...</p>;
+    return <p className="text-[var(--a3-text-secondary)]">جاري التحميل...</p>;
 
   return (
-    <div className="text-gray-900 dark:text-gray-100 space-y-10">
+    <div className="space-y-10" dir="rtl">
 
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-3xl font-bold text-blue-700 dark:text-blue-300">
+          <h2 className="text-[24px] font-bold text-[var(--a3-text-primary)]">
             الحسابات الافتراضية
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+          <p className="mt-1 text-[14px] text-[var(--a3-text-secondary)]">
             ربط النظام بالحسابات الأساسية — تصميم عالمي فاخر
           </p>
         </div>
 
-        <button
+        <Button
           onClick={saveDefaults}
-          className="px-6 py-2.5 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition flex items-center gap-2"
+          className="flex items-center gap-2"
         >
           <FiSave size={18} />
           حفظ
-        </button>
+        </Button>
       </div>
 
-      {/* Card */}
-      <div className="p-6 bg-white dark:bg-gray-900 border rounded-xl shadow-lg space-y-6 max-w-xl">
+      <Card className="max-w-xl space-y-6">
 
-        <h3 className="text-xl font-bold text-blue-700 dark:text-blue-300">
+        <h3 className="text-[20px] font-bold text-[var(--a3-text-primary)]">
           الحسابات الافتراضية
         </h3>
 
-        <div>
-          <label className="block mb-1 text-sm font-medium">حساب المبيعات</label>
-          <input
-            name="sales_account"
-            value={form.sales_account}
-            onChange={handleChange}
-            className="w-full border rounded-lg p-2 bg-white dark:bg-gray-800"
-            placeholder="مثال: 411000 — المبيعات"
-          />
-        </div>
+        <Input
+          name="sales_account"
+          label="حساب المبيعات"
+          value={form.sales_account}
+          onChange={handleChange}
+          placeholder="مثال: 411000 — المبيعات"
+        />
+        <Input
+          name="purchases_account"
+          label="حساب المشتريات"
+          value={form.purchases_account}
+          onChange={handleChange}
+          placeholder="مثال: 511000 — المشتريات"
+        />
+        <Input
+          name="vat_account"
+          label="حساب ضريبة القيمة المضافة"
+          value={form.vat_account}
+          onChange={handleChange}
+          placeholder="مثال: 217000 — ضريبة القيمة المضافة"
+        />
 
-        <div>
-          <label className="block mb-1 text-sm font-medium">حساب المشتريات</label>
-          <input
-            name="purchases_account"
-            value={form.purchases_account}
-            onChange={handleChange}
-            className="w-full border rounded-lg p-2 bg-white dark:bg-gray-800"
-            placeholder="مثال: 511000 — المشتريات"
-          />
-        </div>
-
-        <div>
-          <label className="block mb-1 text-sm font-medium">حساب ضريبة القيمة المضافة</label>
-          <input
-            name="vat_account"
-            value={form.vat_account}
-            onChange={handleChange}
-            className="w-full border rounded-lg p-2 bg-white dark:bg-gray-800"
-            placeholder="مثال: 217000 — ضريبة القيمة المضافة"
-          />
-        </div>
-
-        <p className="text-gray-500 dark:text-gray-400 text-sm">
+        <p className="text-[14px] text-[var(--a3-text-secondary)]">
           سيتم استخدام هذه الحسابات تلقائيًا في الفواتير، القيود، والتقارير.
         </p>
 
-      </div>
+      </Card>
     </div>
   );
 }

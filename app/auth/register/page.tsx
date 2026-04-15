@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { supabase } from "@/lib/supabaseClient";
+import Card from "@/components/ui/card";
+import Input from "@/components/ui/input";
+import Button from "@/components/ui/button";
 
 export default function RegisterPage() {
-  const supabase = createClientComponentClient();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -26,29 +28,27 @@ export default function RegisterPage() {
   }
 
   return (
-    <form onSubmit={handleRegister}>
-      <h1 className="text-2xl font-bold mb-6">إنشاء حساب</h1>
-
-      <input
-        type="email"
-        placeholder="البريد الإلكتروني"
-        className="w-full p-3 border rounded mb-4"
-        onChange={(e) => setEmail(e.target.value)}
-      />
-
-      <input
-        type="password"
-        placeholder="كلمة المرور"
-        className="w-full p-3 border rounded mb-4"
-        onChange={(e) => setPassword(e.target.value)}
-      />
-
-      <button
-        type="submit"
-        className="w-full bg-green-600 text-white p-3 rounded"
-      >
-        إنشاء حساب
-      </button>
-    </form>
+    <div className="flex min-h-screen items-center justify-center bg-[var(--a3-background)] px-4" dir="rtl">
+      <Card className="w-full max-w-sm">
+        <form onSubmit={handleRegister} className="space-y-4">
+          <h1 className="mb-2 text-center text-[24px] font-bold">إنشاء حساب</h1>
+          <Input
+            type="email"
+            label="البريد الإلكتروني"
+            placeholder="البريد الإلكتروني"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            type="password"
+            label="كلمة المرور"
+            placeholder="كلمة المرور"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button type="submit" className="w-full">
+            إنشاء حساب
+          </Button>
+        </form>
+      </Card>
+    </div>
   );
 }

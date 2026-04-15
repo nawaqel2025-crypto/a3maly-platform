@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { FiSave } from "react-icons/fi";
+import Button from "@/components/ui/button";
+import Card from "@/components/ui/card";
+import Input from "@/components/ui/input";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -67,57 +70,51 @@ export default function TaxSettingsPage() {
   }, []);
 
   if (loading)
-    return <p className="text-gray-900 dark:text-gray-100">جاري التحميل...</p>;
+    return <p className="text-[var(--a3-text-secondary)]">جاري التحميل...</p>;
 
   return (
-    <div className="text-gray-900 dark:text-gray-100 space-y-10">
+    <div className="space-y-10" dir="rtl">
 
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-3xl font-bold text-blue-700 dark:text-blue-300">
+          <h2 className="text-[24px] font-bold text-[var(--a3-text-primary)]">
             إعدادات الضريبة
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+          <p className="mt-1 text-[14px] text-[var(--a3-text-secondary)]">
             إعداد نسبة ضريبة القيمة المضافة — تصميم عالمي فاخر
           </p>
         </div>
 
-        <button
+        <Button
           onClick={saveTax}
-          className="px-6 py-2.5 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition flex items-center gap-2"
+          className="flex items-center gap-2"
         >
           <FiSave size={18} />
           حفظ
-        </button>
+        </Button>
       </div>
 
-      {/* Card */}
-      <div className="p-6 bg-white dark:bg-gray-900 border rounded-xl shadow-lg space-y-6 max-w-xl">
+      <Card className="max-w-xl space-y-6">
 
-        <h3 className="text-xl font-bold text-blue-700 dark:text-blue-300">
+        <h3 className="text-[20px] font-bold text-[var(--a3-text-primary)]">
           نسبة ضريبة القيمة المضافة
         </h3>
 
-        <div>
-          <label className="block mb-1 text-sm font-medium">
-            نسبة الضريبة (%)
-          </label>
-          <input
-            type="number"
-            name="tax_percentage"
-            value={form.tax_percentage}
-            onChange={handleChange}
-            className="w-full border rounded-lg p-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 outline-none transition"
-            placeholder="مثال: 15"
-          />
-        </div>
+        <Input
+          type="number"
+          name="tax_percentage"
+          label="نسبة الضريبة (%)"
+          value={form.tax_percentage}
+          onChange={handleChange}
+          placeholder="مثال: 15"
+        />
 
-        <p className="text-gray-500 dark:text-gray-400 text-sm">
+        <p className="text-[14px] text-[var(--a3-text-secondary)]">
           هذه النسبة تُستخدم في حساب ضريبة المخرجات والمدخلات والفواتير الإلكترونية.
         </p>
 
-      </div>
+      </Card>
     </div>
   );
 }

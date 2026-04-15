@@ -1,32 +1,44 @@
 "use client";
 
 import Link from "next/link";
+import Card from "@/components/ui/card";
+import Badge from "@/components/ui/badge";
+
+const links = [
+  { href: "/dashboard", label: "لوحة التحكم" },
+  { href: "/accounting/chart-of-accounts", label: "شجرة الحسابات" },
+  { href: "/accounting/journal-entries", label: "قيود اليومية" },
+  { href: "/accounting/trial-balance", label: "ميزان المراجعة" },
+  { href: "/accounting/income-statement", label: "قائمة الدخل" },
+  { href: "/accounting/cost-centers", label: "مراكز التكلفة" },
+  { href: "/inventory/items", label: "الأصناف" },
+  { href: "/inventory/warehouses", label: "المستودعات" },
+  { href: "/sales/invoices", label: "فواتير المبيعات" },
+  { href: "/purchases/bills", label: "فواتير المشتريات" },
+  { href: "/hr/employees", label: "الموظفون" },
+];
 
 export default function Sidebar() {
   return (
-    <div className="w-64 h-screen bg-gray-900 text-white p-4" dir="rtl">
-      <h2 className="text-lg font-bold mb-4">القائمة</h2>
-
-      <ul className="space-y-2">
-
-        <li><Link href="/dashboard" className="hover:text-blue-300">لوحة التحكم</Link></li>
-
-        <li><Link href="/accounting/chart-of-accounts" className="hover:text-blue-300">شجرة الحسابات</Link></li>
-        <li><Link href="/accounting/journal-entries" className="hover:text-blue-300">قيود اليومية</Link></li>
-        <li><Link href="/accounting/trial-balance" className="hover:text-blue-300">ميزان المراجعة</Link></li>
-        <li><Link href="/accounting/income-statement" className="hover:text-blue-300">قائمة الدخل</Link></li>
-        <li><Link href="/accounting/cost-centers" className="hover:text-blue-300">مراكز التكلفة</Link></li>
-
-        <li><Link href="/inventory/items" className="hover:text-blue-300">الأصناف</Link></li>
-        <li><Link href="/inventory/warehouses" className="hover:text-blue-300">المستودعات</Link></li>
-
-        <li><Link href="/sales/invoices" className="hover:text-blue-300">فواتير المبيعات</Link></li>
-
-        <li><Link href="/purchases/bills" className="hover:text-blue-300">فواتير المشتريات</Link></li>
-
-        <li><Link href="/hr/employees" className="hover:text-blue-300">الموظفون</Link></li>
-
-      </ul>
-    </div>
+    <aside className="h-screen w-[var(--layout-sidebar-width)] p-4" dir="rtl">
+      <Card className="h-full">
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-[20px] font-semibold text-[var(--a3-text-primary)]">القائمة</h2>
+          <Badge variant="info">A3MALY</Badge>
+        </div>
+        <ul className="space-y-1">
+          {links.map((item) => (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                className="block rounded-[8px] px-3 py-2 text-[14px] text-[var(--a3-text-secondary)] transition hover:bg-[var(--a3-background)] hover:text-[var(--a3-primary)]"
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </Card>
+    </aside>
   );
 }

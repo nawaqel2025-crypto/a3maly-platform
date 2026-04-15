@@ -1,4 +1,6 @@
 import { FiLayers, FiGitBranch, FiList } from "react-icons/fi";
+import Link from "next/link";
+import Card from "@/components/ui/card";
 
 export default function ConfigurationDashboard() {
   const items = [
@@ -23,23 +25,24 @@ export default function ConfigurationDashboard() {
   ];
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-3xl font-bold">قسم التهيئة</h1>
+    <div className="space-y-6" dir="rtl">
+      <h1 className="text-[24px] font-bold text-[var(--a3-text-primary)]">قسم التهيئة</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {items.map((item) => (
-          <a
+          <Link
             key={item.title}
             href={item.href}
-            className="p-6 border rounded-xl bg-white dark:bg-gray-900 shadow-sm hover:shadow-md transition-all duration-200 flex items-center gap-4"
+            className="block"
           >
-            <div className="text-green-600 dark:text-green-400">{item.icon}</div>
-
-            <div className="text-right flex-1">
-              <h2 className="font-semibold text-xl">{item.title}</h2>
-              <p className="text-gray-500 text-sm">{item.description}</p>
-            </div>
-          </a>
+            <Card className="flex items-center gap-4 transition hover:bg-[var(--a3-background)]">
+              <div className="text-[var(--a3-primary)]">{item.icon}</div>
+              <div className="flex-1 text-right">
+                <h2 className="text-[20px] font-semibold">{item.title}</h2>
+                <p className="text-[14px] text-[var(--a3-text-secondary)]">{item.description}</p>
+              </div>
+            </Card>
+          </Link>
         ))}
       </div>
     </div>

@@ -2,6 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import Card from "@/components/ui/card";
+import Input from "@/components/ui/input";
+import Button from "@/components/ui/button";
 
 type ProjectStatus = "لم يبدأ" | "قيد التنفيذ" | "مكتمل";
 type ProjectPriority = "منخفضة" | "متوسطة" | "عالية";
@@ -52,167 +56,64 @@ export default function CreateProjectPage() {
   };
 
   return (
-    <div className="p-6 space-y-6">
-      {/* العنوان + العودة */}
+    <div className="space-y-6 p-6" dir="rtl">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">إضافة مشروع جديد</h1>
-
-        <a
-          href="/dashboard/projects"
-          className="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-800 transition"
-        >
+        <h1 className="text-[24px] font-bold text-[var(--a3-text-primary)]">إضافة مشروع جديد</h1>
+        <Link href="/dashboard/projects" className="text-[14px] text-[var(--a3-primary)] hover:underline">
           ← العودة للمشاريع
-        </a>
+        </Link>
       </div>
 
-      {/* النموذج */}
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-6 rounded shadow space-y-6 max-w-4xl"
+        className="max-w-4xl space-y-6"
       >
-        {/* الصف الأول: الاسم + العميل */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block mb-1 font-semibold">اسم المشروع</label>
-            <input
-              type="text"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              required
-              className="w-full border p-2 rounded"
-              placeholder="مثال: نظام إدارة الموارد ERP"
-            />
+        <Card className="space-y-6">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <Input type="text" name="name" label="اسم المشروع" value={form.name} onChange={handleChange} required placeholder="مثال: نظام إدارة الموارد ERP" />
+            <Input type="text" name="client" label="العميل" value={form.client} onChange={handleChange} placeholder="اسم العميل أو الجهة" />
           </div>
 
           <div>
-            <label className="block mb-1 font-semibold">العميل</label>
-            <input
-              type="text"
-              name="client"
-              value={form.client}
-              onChange={handleChange}
-              className="w-full border p-2 rounded"
-              placeholder="اسم العميل أو الجهة"
-            />
+            <label className="mb-1 block text-[14px] font-medium text-[var(--a3-text-secondary)]">الوصف</label>
+            <textarea name="description" value={form.description} onChange={handleChange} required className="min-h-[120px] w-full rounded-[8px] border border-[var(--a3-border)] p-3" placeholder="وصف مختصر للمشروع، الأهداف، النطاق..." />
           </div>
-        </div>
 
-        {/* الوصف */}
-        <div>
-          <label className="block mb-1 font-semibold">الوصف</label>
-          <textarea
-            name="description"
-            value={form.description}
-            onChange={handleChange}
-            required
-            className="w-full border p-2 rounded h-28"
-            placeholder="وصف مختصر للمشروع، الأهداف، النطاق..."
-          ></textarea>
-        </div>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <Input type="text" name="manager" label="مدير المشروع" value={form.manager} onChange={handleChange} />
+            <div>
+              <label className="mb-1 block text-[14px] font-medium text-[var(--a3-text-secondary)]">الحالة</label>
+              <select name="status" value={form.status} onChange={handleChange} className="min-h-[42px] w-full rounded-[8px] border border-[var(--a3-border)] px-3">
+                <option value="لم يبدأ">لم يبدأ</option>
+                <option value="قيد التنفيذ">قيد التنفيذ</option>
+                <option value="مكتمل">مكتمل</option>
+              </select>
+            </div>
+            <div>
+              <label className="mb-1 block text-[14px] font-medium text-[var(--a3-text-secondary)]">الأولوية</label>
+              <select name="priority" value={form.priority} onChange={handleChange} className="min-h-[42px] w-full rounded-[8px] border border-[var(--a3-border)] px-3">
+                <option value="منخفضة">منخفضة</option>
+                <option value="متوسطة">متوسطة</option>
+                <option value="عالية">عالية</option>
+              </select>
+            </div>
+          </div>
 
-        {/* الصف الثاني: المدير + الحالة + الأولوية */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div>
-            <label className="block mb-1 font-semibold">مدير المشروع</label>
-            <input
-              type="text"
-              name="manager"
-              value={form.manager}
-              onChange={handleChange}
-              className="w-full border p-2 rounded"
-            />
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <Input type="number" name="budget" label="الميزانية (اختياري)" value={form.budget} onChange={handleChange} placeholder="مثال: 50000" />
+            <Input type="date" name="startDate" label="تاريخ البدء" value={form.startDate} onChange={handleChange} required />
+            <Input type="date" name="endDate" label="تاريخ الانتهاء" value={form.endDate} onChange={handleChange} required />
           </div>
 
           <div>
-            <label className="block mb-1 font-semibold">الحالة</label>
-            <select
-              name="status"
-              value={form.status}
-              onChange={handleChange}
-              className="w-full border p-2 rounded"
-            >
-              <option value="لم يبدأ">لم يبدأ</option>
-              <option value="قيد التنفيذ">قيد التنفيذ</option>
-              <option value="مكتمل">مكتمل</option>
-            </select>
+            <label className="mb-1 block text-[14px] font-medium text-[var(--a3-text-secondary)]">ملاحظات إضافية</label>
+            <textarea name="notes" value={form.notes} onChange={handleChange} className="min-h-[96px] w-full rounded-[8px] border border-[var(--a3-border)] p-3" placeholder="أي تفاصيل إضافية عن المشروع..." />
           </div>
 
-          <div>
-            <label className="block mb-1 font-semibold">الأولوية</label>
-            <select
-              name="priority"
-              value={form.priority}
-              onChange={handleChange}
-              className="w-full border p-2 rounded"
-            >
-              <option value="منخفضة">منخفضة</option>
-              <option value="متوسطة">متوسطة</option>
-              <option value="عالية">عالية</option>
-            </select>
+          <div className="flex justify-start">
+            <Button type="submit">حفظ المشروع</Button>
           </div>
-        </div>
-
-        {/* الصف الثالث: الميزانية + التواريخ */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div>
-            <label className="block mb-1 font-semibold">الميزانية (اختياري)</label>
-            <input
-              type="number"
-              name="budget"
-              value={form.budget}
-              onChange={handleChange}
-              className="w-full border p-2 rounded"
-              placeholder="مثال: 50000"
-            />
-          </div>
-
-          <div>
-            <label className="block mb-1 font-semibold">تاريخ البدء</label>
-            <input
-              type="date"
-              name="startDate"
-              value={form.startDate}
-              onChange={handleChange}
-              required
-              className="w-full border p-2 rounded"
-            />
-          </div>
-
-          <div>
-            <label className="block mb-1 font-semibold">تاريخ الانتهاء</label>
-            <input
-              type="date"
-              name="endDate"
-              value={form.endDate}
-              onChange={handleChange}
-              required
-              className="w-full border p-2 rounded"
-            />
-          </div>
-        </div>
-
-        {/* ملاحظات إضافية */}
-        <div>
-          <label className="block mb-1 font-semibold">ملاحظات إضافية</label>
-          <textarea
-            name="notes"
-            value={form.notes}
-            onChange={handleChange}
-            className="w-full border p-2 rounded h-24"
-            placeholder="أي تفاصيل إضافية عن المشروع، شروط خاصة، ملاحظات داخلية..."
-          ></textarea>
-        </div>
-
-        {/* زر الإرسال */}
-        <div className="flex justify-start">
-          <button
-            type="submit"
-            className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-          >
-            حفظ المشروع
-          </button>
-        </div>
+        </Card>
       </form>
     </div>
   );

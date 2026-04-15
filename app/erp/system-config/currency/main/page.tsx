@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
+import Button from "@/components/ui/button";
+import Card from "@/components/ui/card";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -72,46 +74,42 @@ export default function MainCurrencyPage() {
   }, []);
 
   if (loading)
-    return <p className="text-gray-900 dark:text-gray-100">جاري التحميل...</p>;
+    return <p className="text-[var(--a3-text-secondary)]">جاري التحميل...</p>;
 
   return (
-    <div className="text-gray-900 dark:text-gray-100 space-y-8">
+    <div className="space-y-8" dir="rtl">
 
-      <h2 className="text-3xl font-bold text-blue-700 dark:text-blue-300">
+      <h2 className="text-[24px] font-bold text-[var(--a3-text-primary)]">
         اختيار العملة الرئيسية
       </h2>
 
-      <p className="text-gray-600 dark:text-gray-400 text-sm">
+      <p className="text-[14px] text-[var(--a3-text-secondary)]">
         اختر العملة التي سيتم استخدامها كعملة أساسية في النظام.
       </p>
 
-      {/* Dropdown */}
-      <div className="space-y-2">
-        <label className="block text-sm font-medium">العملة الرئيسية</label>
+      <Card className="max-w-xl space-y-4">
+        <div className="space-y-2">
+          <label className="block text-[14px] font-medium text-[var(--a3-text-secondary)]">العملة الرئيسية</label>
 
-        <select
-          value={mainCurrency}
-          onChange={(e) => setMainCurrency(e.target.value)}
-          className="w-full border rounded-lg p-3 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100"
-        >
-          <option value="">— اختر العملة —</option>
+          <select
+            value={mainCurrency}
+            onChange={(e) => setMainCurrency(e.target.value)}
+            className="min-h-[42px] w-full rounded-[8px] border border-[var(--a3-border)] bg-[var(--a3-surface)] px-3 py-2 text-[var(--a3-text-primary)] outline-none focus:border-[var(--a3-primary)]"
+          >
+            <option value="">— اختر العملة —</option>
 
-          {currencies.map((c) => (
-            <option key={c.id} value={c.currency_code}>
-              {c.currency_name} ({c.currency_code})
-            </option>
-          ))}
-        </select>
-      </div>
+            {currencies.map((c) => (
+              <option key={c.id} value={c.currency_code}>
+                {c.currency_name} ({c.currency_code})
+              </option>
+            ))}
+          </select>
+        </div>
 
-      {/* Save Button */}
-      <button
-        onClick={saveMainCurrency}
-        disabled={saving}
-        className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition shadow"
-      >
-        {saving ? "جاري الحفظ..." : "حفظ"}
-      </button>
+        <Button onClick={saveMainCurrency} disabled={saving}>
+          {saving ? "جاري الحفظ..." : "حفظ"}
+        </Button>
+      </Card>
     </div>
   );
 }

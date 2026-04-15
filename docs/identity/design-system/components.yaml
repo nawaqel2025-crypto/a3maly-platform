@@ -1,0 +1,43 @@
+﻿components:
+  button:
+    radius: 8
+    sizes:
+      sm: { padding: "6px 12px", font: 14 }
+      md: { padding: "8px 16px", font: 16 }
+      lg: { padding: "12px 20px", font: 18 }
+    variants:
+      primary:
+        background: "#2563EB"
+        text: "#FFFFFF"
+      secondary:
+        background: "#E2E8F0"
+        text: "#0F172A"
+      outline:
+        border: "#2563EB"
+        text: "#2563EB"
+
+  card:
+    background: "#FFFFFF"
+    radius: 12
+    padding: 20
+    shadow: "0 2px 8px rgba(0,0,0,0.05)"
+
+  table:
+    header:
+      background: "#F1F5F9"
+      text: "#0F172A"
+      height: 48
+    row:
+      height: 44
+      hover: "#F8FAFC"
+    border_color: "#E2E8F0"
+
+  form:
+    input:
+      height: 42
+      radius: 8
+      border: "#E2E8F0"
+      focus_border: "#2563EB"
+    label:
+      font_size: 14
+      color: "#475569"

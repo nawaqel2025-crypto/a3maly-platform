@@ -2,7 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "../../../utils/supabaseClient";
+import { supabase } from "@/lib/supabaseClient";
+import Card from "@/components/ui/card";
+import Input from "@/components/ui/input";
+import Button from "@/components/ui/button";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -28,40 +31,36 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <form
-        onSubmit={handleLogin}
-        className="bg-white p-6 rounded shadow w-80 space-y-4"
-      >
-        <h2 className="text-xl font-bold text-center">Login</h2>
+    <div className="flex h-screen items-center justify-center bg-[var(--a3-background)] px-4" dir="rtl">
+      <Card className="w-full max-w-sm">
+        <form onSubmit={handleLogin} className="space-y-4">
+          <h2 className="text-center text-[24px] font-bold">تسجيل الدخول</h2>
 
-        {errorMsg && (
-          <p className="text-red-500 text-center text-sm">{errorMsg}</p>
-        )}
+          {errorMsg && (
+            <p className="text-center text-[14px] text-[var(--a3-danger)]">{errorMsg}</p>
+          )}
 
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full p-2 border rounded"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+          <Input
+            type="email"
+            label="البريد الإلكتروني"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full p-2 border rounded"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <Input
+            type="password"
+            label="كلمة المرور"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
-        >
-          Login
-        </button>
-      </form>
+          <Button type="submit" className="w-full">
+            Login
+          </Button>
+        </form>
+      </Card>
     </div>
   );
 }

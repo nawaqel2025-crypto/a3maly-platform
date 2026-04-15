@@ -20,7 +20,7 @@ export default function Input({
     <div className="flex flex-col gap-1 w-full">
       {/* Label */}
       {label && (
-        <label className="text-[var(--color-fg)] text-sm font-medium">
+        <label className="text-[14px] font-medium text-[var(--a3-text-secondary)]">
           {label}
         </label>
       )}
@@ -28,31 +28,30 @@ export default function Input({
       {/* Input Wrapper */}
       <div
         className={clsx(
-          "flex items-center gap-2 px-3 py-2 rounded-md border transition-all duration-200",
-          "bg-[var(--color-bg)] text-[var(--color-fg)]",
-          "border-[var(--color-border)]",
-          "focus-within:border-[var(--color-primary)] focus-within:shadow-sm",
-          error && "border-[var(--color-danger)]",
+          "flex min-h-[42px] items-center gap-2 rounded-[8px] border px-3 py-2 transition-colors",
+          "bg-[var(--a3-surface)] text-[var(--a3-text-primary)] border-[var(--a3-border)]",
+          "focus-within:border-[var(--a3-primary)] focus-within:ring-2 focus-within:ring-[var(--a3-primary)]/15",
+          error && "border-[var(--a3-danger)]",
           props.disabled && "opacity-50 cursor-not-allowed",
           className
         )}
       >
         {/* Icon */}
-        {icon && <span className="text-[var(--color-fg-muted)]">{icon}</span>}
+        {icon && <span className="text-[var(--a3-text-secondary)]">{icon}</span>}
 
         {/* Input Element */}
         <input
           {...props}
           className={clsx(
             "flex-1 bg-transparent outline-none",
-            "text-[var(--color-fg)] placeholder-[var(--color-fg-muted)]"
+            "text-[var(--a3-text-primary)] placeholder-[var(--a3-text-secondary)]"
           )}
         />
       </div>
 
       {/* Error Message */}
       {error && (
-        <span className="text-[var(--color-danger)] text-xs font-medium">
+        <span className="text-[var(--a3-danger)] text-xs font-medium">
           {error}
         </span>
       )}

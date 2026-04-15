@@ -26,8 +26,8 @@ export default function Card({
 
   const paddingMap = {
     none: "p-0",
-    sm: "p-3",
-    md: "p-4",
+    sm: "p-4",
+    md: "p-5",
     lg: "p-6",
   };
 
@@ -40,7 +40,7 @@ export default function Card({
   return (
     <div
       className={clsx(
-        "bg-[var(--color-bg)] border border-[var(--color-border)] transition-all duration-200",
+        "bg-[var(--a3-surface)] border border-[var(--a3-border)] transition-all duration-200",
         shadowMap[shadow],
         paddingMap[padding],
         radiusMap[radius],

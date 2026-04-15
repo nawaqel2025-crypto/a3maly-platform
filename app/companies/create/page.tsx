@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
+import Card from "@/components/ui/card";
+import Input from "@/components/ui/input";
+import Button from "@/components/ui/button";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -41,61 +44,19 @@ export default function CreateCompanyPage() {
   }
 
   return (
-    <div className="p-6 max-w-xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">إضافة شركة جديدة</h1>
-
-      <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 rounded shadow">
-
-        <div>
-          <label className="block mb-1 font-semibold">اسم الشركة</label>
-          <input
-            type="text"
-            className="w-full border p-2 rounded"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block mb-1 font-semibold">الكود</label>
-          <input
-            type="text"
-            className="w-full border p-2 rounded"
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block mb-1 font-semibold">الدولة</label>
-          <input
-            type="text"
-            className="w-full border p-2 rounded"
-            value={country}
-            onChange={(e) => setCountry(e.target.value)}
-          />
-        </div>
-
-        <div>
-          <label className="block mb-1 font-semibold">المدينة</label>
-          <input
-            type="text"
-            className="w-full border p-2 rounded"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-          />
-        </div>
-
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
-        >
-          {loading ? "جاري الحفظ..." : "حفظ الشركة"}
-        </button>
-      </form>
+    <div className="mx-auto max-w-xl p-6" dir="rtl">
+      <h1 className="mb-6 text-[24px] font-bold text-[var(--a3-text-primary)]">إضافة شركة جديدة</h1>
+      <Card>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <Input type="text" label="اسم الشركة" value={name} onChange={(e) => setName(e.target.value)} required />
+          <Input type="text" label="الكود" value={code} onChange={(e) => setCode(e.target.value)} required />
+          <Input type="text" label="الدولة" value={country} onChange={(e) => setCountry(e.target.value)} />
+          <Input type="text" label="المدينة" value={city} onChange={(e) => setCity(e.target.value)} />
+          <Button type="submit" disabled={loading} className="w-full">
+            {loading ? "جاري الحفظ..." : "حفظ الشركة"}
+          </Button>
+        </form>
+      </Card>
     </div>
   );
 }

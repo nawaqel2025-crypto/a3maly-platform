@@ -1,0 +1,8 @@
+﻿layout:
+  sidebar_width: 260
+  header_height: 64
+  container_max_width: 1440
+  border_radius: 8
+  card_padding: 20
+  grid_gap: 16
+  section_spacing: 32

@@ -37,28 +37,25 @@ export default function Modal({
   return (
     <div
       className="
-        fixed inset-0 z-50 flex items-center justify-center
-        bg-transparent   /* ← لا تمويه ولا تعتيم */
+        fixed inset-0 z-50 flex items-center justify-center bg-black/35
       "
       onClick={onClose}
     >
       <div
         className={clsx(
-          "bg-[var(--color-bg)] text-[var(--color-fg)] rounded-lg shadow-xl border border-[var(--color-border)]",
+          "bg-[var(--a3-surface)] text-[var(--a3-text-primary)] rounded-[12px] shadow-xl border border-[var(--a3-border)]",
           "w-full mx-4 overflow-hidden",
           widthMap[width]
         )}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header ثابت */}
         {title && (
-          <div className="p-4 border-b border-[var(--color-border)] bg-[var(--color-bg)] sticky top-0 z-30">
-            <h2 className="text-lg font-semibold">{title}</h2>
+          <div className="p-4 border-b border-[var(--a3-border)] bg-[var(--a3-surface)] sticky top-0 z-30">
+            <h2 className="text-[20px] font-semibold">{title}</h2>
           </div>
         )}
 
-        {/* Body قابل للتمرير */}
-        <div className="max-h-[75vh] overflow-y-auto p-4">
+        <div className="max-h-[75vh] overflow-y-auto p-5">
           {children}
         </div>
       </div>

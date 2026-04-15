@@ -1,6 +1,19 @@
 "use client";
 
 import { useParams } from "next/navigation";
+import Link from "next/link";
+import Card from "@/components/ui/card";
+import Badge from "@/components/ui/badge";
+import Button from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+  TableWrapper,
+} from "@/components/ui/table";
 
 export default function ProjectDetailsPage() {
   const { id } = useParams();
@@ -24,97 +37,86 @@ export default function ProjectDetailsPage() {
   };
 
   return (
-    <div className="p-6 space-y-6">
-      {/* العنوان */}
+    <div className="space-y-6 p-6" dir="rtl">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">تفاصيل المشروع</h1>
-
-        <a
-          href="/dashboard/projects"
-          className="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-800 transition"
-        >
+        <h1 className="text-[24px] font-bold text-[var(--a3-text-primary)]">تفاصيل المشروع</h1>
+        <Link href="/dashboard/projects" className="text-[14px] text-[var(--a3-primary)] hover:underline">
           ← العودة للمشاريع
-        </a>
+        </Link>
       </div>
 
-      {/* بطاقة معلومات المشروع */}
-      <div className="bg-white p-6 rounded shadow space-y-4">
-        <h2 className="text-2xl font-bold">{project.name}</h2>
-        <p className="text-gray-600">{project.description}</p>
+      <Card className="space-y-4">
+        <h2 className="text-[24px] font-bold">{project.name}</h2>
+        <p className="text-[14px] text-[var(--a3-text-secondary)]">{project.description}</p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+        <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
           <div>
-            <p className="text-gray-500">مدير المشروع</p>
+            <p className="text-[14px] text-[var(--a3-text-secondary)]">مدير المشروع</p>
             <p className="font-semibold">{project.manager}</p>
           </div>
 
           <div>
-            <p className="text-gray-500">الحالة</p>
-            <p className="font-semibold">{project.status}</p>
+            <p className="text-[14px] text-[var(--a3-text-secondary)]">الحالة</p>
+            <Badge variant="info">{project.status}</Badge>
           </div>
 
           <div>
-            <p className="text-gray-500">نسبة الإنجاز</p>
-            <div className="w-full bg-gray-200 rounded h-2 mt-1">
+            <p className="text-[14px] text-[var(--a3-text-secondary)]">نسبة الإنجاز</p>
+            <div className="mt-1 h-2 w-full rounded bg-[var(--a3-border)]">
               <div
-                className="bg-green-600 h-2 rounded"
+                className="h-2 rounded bg-[var(--a3-success)]"
                 style={{ width: `${project.progress}%` }}
-              ></div>
+              />
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+        <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
-            <p className="text-gray-500">تاريخ البدء</p>
+            <p className="text-[14px] text-[var(--a3-text-secondary)]">تاريخ البدء</p>
             <p className="font-semibold">{project.startDate}</p>
           </div>
 
           <div>
-            <p className="text-gray-500">تاريخ الانتهاء</p>
+            <p className="text-[14px] text-[var(--a3-text-secondary)]">تاريخ الانتهاء</p>
             <p className="font-semibold">{project.endDate}</p>
           </div>
         </div>
-      </div>
+      </Card>
 
-      {/* فريق العمل */}
-      <div className="bg-white p-6 rounded shadow">
-        <h3 className="text-xl font-bold mb-4">فريق العمل</h3>
-
-        <div className="flex flex-wrap gap-3">
+      <Card>
+        <h3 className="mb-4 text-[20px] font-bold">فريق العمل</h3>
+        <div className="flex flex-wrap gap-2">
           {project.team.map((member, index) => (
-            <span
-              key={index}
-              className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full"
-            >
-              {member}
-            </span>
+            <Badge key={index} variant="neutral" rounded="full">{member}</Badge>
           ))}
         </div>
-      </div>
+      </Card>
 
-      {/* المهام */}
-      <div className="bg-white p-6 rounded shadow">
-        <h3 className="text-xl font-bold mb-4">المهام</h3>
-
-        <table className="w-full text-right">
-          <thead>
-            <tr className="border-b">
-              <th className="p-3">المهمة</th>
-              <th className="p-3">الحالة</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {project.tasks.map((task, index) => (
-              <tr key={index} className="border-b hover:bg-gray-50">
-                <td className="p-3">{task.title}</td>
-                <td className="p-3">{task.status}</td>
+      <Card className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h3 className="text-[20px] font-bold">المهام</h3>
+          <Link href={`/dashboard/projects/${id}/tasks/create`}><Button size="sm">إضافة مهمة</Button></Link>
+        </div>
+        <TableWrapper>
+          <Table>
+            <TableHead>
+              <tr>
+                <TableHeaderCell>المهمة</TableHeaderCell>
+                <TableHeaderCell>الحالة</TableHeaderCell>
               </tr>
+            </TableHead>
+            <TableBody>
+            {project.tasks.map((task, index) => (
+              <TableRow key={index}>
+                <TableCell>{task.title}</TableCell>
+                <TableCell>{task.status}</TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
-      </div>
+            </TableBody>
+          </Table>
+        </TableWrapper>
+      </Card>
     </div>
   );
 }

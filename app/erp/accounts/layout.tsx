@@ -2,6 +2,7 @@
 
 import { FiSettings, FiLayers, FiActivity, FiBarChart2 } from "react-icons/fi";
 import Link from "next/link";
+import Card from "@/components/ui/card";
 
 export default function AccountsLayout({ children }) {
   const menu = [
@@ -28,10 +29,10 @@ export default function AccountsLayout({ children }) {
   ];
 
   return (
-    <div className="flex w-full h-full bg-[var(--color-bg)] text-[var(--color-fg)]">
+    <div className="flex h-full w-full bg-[var(--a3-background)] text-[var(--a3-text-primary)]" dir="rtl">
       
       {/* Sidebar */}
-      <aside className="w-64 border-l border-[var(--color-border)] bg-[var(--color-bg-muted)] p-4">
+      <aside className="w-64 border-l border-[var(--a3-border)] bg-[var(--a3-surface)] p-4">
         <nav className="space-y-2 text-right">
           {menu.map((item) => (
             <Link
@@ -39,12 +40,12 @@ export default function AccountsLayout({ children }) {
               href={item.href}
               className="
                 flex items-center gap-3 
-                p-3 rounded-lg 
-                hover:bg-[var(--color-bg-hover)]
+                p-3 rounded-[8px] 
+                hover:bg-[var(--a3-background)]
                 transition-all
               "
             >
-              <span className="text-green-600 dark:text-green-400">
+              <span className="text-[var(--a3-primary)]">
                 {item.icon}
               </span>
 
@@ -58,7 +59,7 @@ export default function AccountsLayout({ children }) {
 
       {/* Main content */}
       <main className="flex-1 p-6 overflow-y-auto">
-        {children}
+        <Card>{children}</Card>
       </main>
     </div>
   );

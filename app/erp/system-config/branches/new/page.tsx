@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
+import Input from "@/components/ui/input";
+import Button from "@/components/ui/button";
+import Card from "@/components/ui/card";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -31,37 +34,26 @@ export default function NewBranchPage() {
   };
 
   return (
-    <div className="text-gray-900 dark:text-gray-100 space-y-6">
-      <h2 className="text-2xl font-bold">إضافة فرع جديد</h2>
+    <div className="space-y-6" dir="rtl">
+      <h2 className="text-[24px] font-bold text-[var(--a3-text-primary)]">إضافة فرع جديد</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label className="block mb-1 text-sm font-medium">اسم الفرع</label>
-          <input
+      <Card className="space-y-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <Input
             name="name"
+            label="اسم الفرع"
             value={form.name}
             onChange={handleChange}
-            className="w-full border rounded p-2 bg-white dark:bg-gray-900"
           />
-        </div>
-
-        <div>
-          <label className="block mb-1 text-sm font-medium">المدينة</label>
-          <input
+          <Input
             name="city"
+            label="المدينة"
             value={form.city}
             onChange={handleChange}
-            className="w-full border rounded p-2 bg-white dark:bg-gray-900"
           />
         </div>
+        <Button onClick={saveBranch}>حفظ</Button>
+      </Card>
       </div>
-
-      <button
-        onClick={saveBranch}
-        className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-      >
-        حفظ
-      </button>
-    </div>
   );
 }

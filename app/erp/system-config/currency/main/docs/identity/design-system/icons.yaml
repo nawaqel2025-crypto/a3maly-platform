@@ -1,0 +1,8 @@
+icons:
+  style: "outline"
+  stroke_width: 1.8
+  size_default: 20
+  size_small: 16
+  size_large: 24
+  color: "#475569"
+  active_color: "#2563EB"

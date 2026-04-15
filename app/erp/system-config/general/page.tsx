@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { FiSave } from "react-icons/fi";
+import Button from "@/components/ui/button";
+import Card from "@/components/ui/card";
+import Input from "@/components/ui/input";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -76,66 +79,60 @@ export default function GeneralSettingsPage() {
   }, []);
 
   if (loading)
-    return <p className="text-gray-900 dark:text-gray-100">جاري التحميل...</p>;
+    return <p className="text-[var(--a3-text-secondary)]">جاري التحميل...</p>;
 
   return (
-    <div className="text-gray-900 dark:text-gray-100 space-y-10">
+    <div className="space-y-10" dir="rtl">
 
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-3xl font-bold text-blue-700 dark:text-blue-300">
+          <h2 className="text-[24px] font-bold text-[var(--a3-text-primary)]">
             الإعدادات العامة
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+          <p className="mt-1 text-[14px] text-[var(--a3-text-secondary)]">
             إعدادات النظام الأساسية — تصميم عالمي فاخر
           </p>
         </div>
 
-        <button
+        <Button
           onClick={saveSettings}
-          className="px-6 py-2.5 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition flex items-center gap-2"
+          className="flex items-center gap-2"
         >
           <FiSave size={18} />
           حفظ
-        </button>
+        </Button>
       </div>
 
       {/* Cards Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
 
         {/* Card 1 — Fiscal Year */}
-        <div className="p-6 bg-white dark:bg-gray-900 border rounded-xl shadow-lg space-y-4">
-          <h3 className="text-xl font-bold text-blue-700 dark:text-blue-300">
+        <Card className="space-y-4">
+          <h3 className="text-[20px] font-bold text-[var(--a3-text-primary)]">
             السنة المالية
           </h3>
 
-          <div>
-            <label className="block mb-1 text-sm font-medium">تاريخ البداية</label>
-            <input
-              type="date"
-              name="fiscal_start"
-              value={form.fiscal_start}
-              onChange={handleChange}
-              className="w-full border rounded-lg p-2 bg-white dark:bg-gray-800"
-            />
-          </div>
+          <Input
+            type="date"
+            name="fiscal_start"
+            label="تاريخ البداية"
+            value={form.fiscal_start}
+            onChange={handleChange}
+          />
 
-          <div>
-            <label className="block mb-1 text-sm font-medium">تاريخ النهاية</label>
-            <input
-              type="date"
-              name="fiscal_end"
-              value={form.fiscal_end}
-              onChange={handleChange}
-              className="w-full border rounded-lg p-2 bg-white dark:bg-gray-800"
-            />
-          </div>
-        </div>
+          <Input
+            type="date"
+            name="fiscal_end"
+            label="تاريخ النهاية"
+            value={form.fiscal_end}
+            onChange={handleChange}
+          />
+        </Card>
 
         {/* Card 2 — Journal Options */}
-        <div className="p-6 bg-white dark:bg-gray-900 border rounded-xl shadow-lg space-y-4">
-          <h3 className="text-xl font-bold text-blue-700 dark:text-blue-300">
+        <Card className="space-y-4">
+          <h3 className="text-[20px] font-bold text-[var(--a3-text-primary)]">
             خيارات القيود المحاسبية
           </h3>
 
@@ -145,7 +142,7 @@ export default function GeneralSettingsPage() {
               name="allow_past"
               checked={form.allow_past}
               onChange={handleChange}
-              className="w-5 h-5"
+              className="h-5 w-5 accent-[var(--a3-primary)]"
             />
             <span>السماح بالقيود بتاريخ سابق</span>
           </label>
@@ -156,7 +153,7 @@ export default function GeneralSettingsPage() {
               name="allow_future"
               checked={form.allow_future}
               onChange={handleChange}
-              className="w-5 h-5"
+              className="h-5 w-5 accent-[var(--a3-primary)]"
             />
             <span>السماح بالقيود بتاريخ مستقبلي</span>
           </label>
@@ -167,11 +164,11 @@ export default function GeneralSettingsPage() {
               name="require_description"
               checked={form.require_description}
               onChange={handleChange}
-              className="w-5 h-5"
+              className="h-5 w-5 accent-[var(--a3-primary)]"
             />
             <span>إلزامية البيان في القيود</span>
           </label>
-        </div>
+        </Card>
 
       </div>
     </div>

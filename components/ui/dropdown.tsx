@@ -56,7 +56,7 @@ export default function Dropdown({
       {open && (
         <div
           className={clsx(
-            "absolute mt-2 bg-[var(--color-bg)] border border-[var(--color-border)] shadow-lg rounded-[var(--radius-md)] overflow-hidden animate-dropdown",
+            "absolute mt-2 bg-[var(--a3-surface)] border border-[var(--a3-border)] shadow-lg rounded-[var(--radius-md)] overflow-hidden animate-dropdown",
             widthMap[width],
             align === "right" ? "right-0" : "left-0"
           )}
@@ -68,7 +68,7 @@ export default function Dropdown({
       {/* Animations */}
       <style jsx>{`
         .animate-dropdown {
-          animation: dropdown var(--duration-normal) var(--ease);
+          animation: dropdown 220ms cubic-bezier(0.16, 1, 0.3, 1);
         }
         @keyframes dropdown {
           from {
@@ -102,11 +102,10 @@ export function DropdownItem({
     <button
       onClick={onClick}
       className={clsx(
-        "w-full text-right px-4 py-2 text-sm transition-all duration-150",
-        "hover:bg-gray-100 dark:hover:bg-gray-800",
+        "w-full text-right px-4 py-2 text-sm transition-all duration-150 hover:bg-[var(--a3-background)]",
         danger
-          ? "text-[var(--color-danger)]"
-          : "text-[var(--color-fg)]"
+          ? "text-[var(--a3-danger)]"
+          : "text-[var(--a3-text-primary)]"
       )}
     >
       {children}

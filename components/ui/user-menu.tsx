@@ -13,7 +13,7 @@ export default function UserMenu() {
           className="
             flex items-center gap-2 cursor-pointer 
             px-2 py-1 rounded-md 
-            hover:bg-gray-100 dark:hover:bg-gray-800 
+            hover:bg-[var(--a3-background)] 
             transition-all duration-200
           "
         >
@@ -21,7 +21,7 @@ export default function UserMenu() {
           <div
             className="
               w-8 h-8 rounded-full 
-              bg-[var(--color-primary)] 
+              bg-[var(--a3-primary)] 
               text-white flex items-center justify-center 
               font-semibold
             "
@@ -30,7 +30,7 @@ export default function UserMenu() {
           </div>
 
           {/* Name */}
-          <span className="text-sm font-medium text-[var(--color-fg)]">
+          <span className="text-sm font-medium text-[var(--a3-text-primary)]">
             نشوان علي
           </span>
         </div>

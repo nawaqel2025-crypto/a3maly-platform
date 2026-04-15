@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
-import Modal from "@/components/ui/Modal";
+import Modal from "@/components/ui/modal";
 
 type Line = {
   account_id: string;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -8,12 +8,11 @@ import {
   Search,
   User,
   FileText,
-  Settings,
-  Home,
   PlusCircle,
-  Sun,
-  Moon,
 } from "lucide-react";
+import Input from "@/components/ui/input";
+import Card from "@/components/ui/card";
+import Button from "@/components/ui/button";
 
 export default function GlobalCommand() {
   const router = useRouter();
@@ -77,19 +76,15 @@ export default function GlobalCommand() {
       className="fixed inset-0 z-[100] bg-black/40 flex items-start justify-center pt-24"
       onClick={() => setOpen(false)}
     >
-      <div
-        className="w-full max-w-xl mx-4 bg-[var(--color-bg)] border border-[var(--color-border)] rounded-xl shadow-xl overflow-hidden"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <Card className="mx-4 w-full max-w-xl overflow-hidden p-0" onClick={(e) => e.stopPropagation()}>
         {/* شريط البحث */}
-        <div className="flex items-center gap-2 px-3 py-2 border-b border-[var(--color-border)]">
-          <Search size={16} className="text-[var(--color-fg-muted)]" />
-          <input
+        <div className="border-b border-[var(--a3-border)] p-3">
+          <Input
             autoFocus
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="ابحث في العملاء، الفواتير، المنتجات، المشاريع، المهام، المستخدمين..."
-            className="flex-1 bg-transparent outline-none text-[var(--color-fg)] placeholder-[var(--color-fg-muted)] text-sm"
+            icon={<Search size={16} className="text-[var(--a3-text-secondary)]" />}
           />
         </div>
 
@@ -97,43 +92,46 @@ export default function GlobalCommand() {
         <div className="max-h-80 overflow-y-auto py-2">
 
           {/* إجراءات سريعة */}
-          <div className="px-4 py-2 text-xs text-[var(--color-fg-muted)]">إجراءات سريعة</div>
+          <div className="px-4 py-2 text-xs text-[var(--a3-text-secondary)]">إجراءات سريعة</div>
 
-          <button
+          <Button
             onClick={() => router.push("/clients/new")}
-            className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 w-full text-right"
+            variant="ghost"
+            className="flex w-full items-center justify-start gap-3 rounded-none px-4 py-2 text-right hover:bg-[var(--a3-background)]"
           >
             <PlusCircle size={16} />
             <span className="text-sm">إنشاء عميل جديد</span>
-          </button>
+          </Button>
 
-          <button
+          <Button
             onClick={() => router.push("/invoices/new")}
-            className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 w-full text-right"
+            variant="ghost"
+            className="flex w-full items-center justify-start gap-3 rounded-none px-4 py-2 text-right hover:bg-[var(--a3-background)]"
           >
             <PlusCircle size={16} />
             <span className="text-sm">إنشاء فاتورة جديدة</span>
-          </button>
+          </Button>
 
-          <button
+          <Button
             onClick={() => router.push("/projects/new")}
-            className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 w-full text-right"
+            variant="ghost"
+            className="flex w-full items-center justify-start gap-3 rounded-none px-4 py-2 text-right hover:bg-[var(--a3-background)]"
           >
             <PlusCircle size={16} />
             <span className="text-sm">إنشاء مشروع جديد</span>
-          </button>
+          </Button>
 
           {/* العملاء */}
           {results.clients.length > 0 && (
             <>
-              <div className="px-4 py-2 text-xs text-[var(--color-fg-muted)]">العملاء</div>
+              <div className="px-4 py-2 text-xs text-[var(--a3-text-secondary)]">العملاء</div>
               {results.clients.map((c: any) => (
                 <Link key={c.id} href={`/clients/${c.id}`} onClick={() => setOpen(false)}>
-                  <div className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
+                  <div className="flex items-center gap-3 px-4 py-2 hover:bg-[var(--a3-background)]">
                     <User size={16} />
                     <div className="flex flex-col">
                       <span className="text-sm">{c.name}</span>
-                      <span className="text-xs text-[var(--color-fg-muted)]">{c.email}</span>
+                      <span className="text-xs text-[var(--a3-text-secondary)]">{c.email}</span>
                     </div>
                   </div>
                 </Link>
@@ -144,14 +142,14 @@ export default function GlobalCommand() {
           {/* الفواتير */}
           {results.invoices.length > 0 && (
             <>
-              <div className="px-4 py-2 text-xs text-[var(--color-fg-muted)]">الفواتير</div>
+              <div className="px-4 py-2 text-xs text-[var(--a3-text-secondary)]">الفواتير</div>
               {results.invoices.map((inv: any) => (
                 <Link key={inv.id} href={`/invoices/${inv.id}`} onClick={() => setOpen(false)}>
-                  <div className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
+                  <div className="flex items-center gap-3 px-4 py-2 hover:bg-[var(--a3-background)]">
                     <FileText size={16} />
                     <div className="flex flex-col">
                       <span className="text-sm">فاتورة #{inv.number}</span>
-                      <span className="text-xs text-[var(--color-fg-muted)]">{inv.status}</span>
+                      <span className="text-xs text-[var(--a3-text-secondary)]">{inv.status}</span>
                     </div>
                   </div>
                 </Link>
@@ -162,14 +160,14 @@ export default function GlobalCommand() {
           {/* المنتجات */}
           {results.products.length > 0 && (
             <>
-              <div className="px-4 py-2 text-xs text-[var(--color-fg-muted)]">المنتجات</div>
+              <div className="px-4 py-2 text-xs text-[var(--a3-text-secondary)]">المنتجات</div>
               {results.products.map((p: any) => (
                 <Link key={p.id} href={`/products/${p.id}`} onClick={() => setOpen(false)}>
-                  <div className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
+                  <div className="flex items-center gap-3 px-4 py-2 hover:bg-[var(--a3-background)]">
                     <FileText size={16} />
                     <div className="flex flex-col">
                       <span className="text-sm">{p.name}</span>
-                      <span className="text-xs text-[var(--color-fg-muted)]">{p.price} ريال</span>
+                      <span className="text-xs text-[var(--a3-text-secondary)]">{p.price} ريال</span>
                     </div>
                   </div>
                 </Link>
@@ -180,14 +178,14 @@ export default function GlobalCommand() {
           {/* المشاريع */}
           {results.projects.length > 0 && (
             <>
-              <div className="px-4 py-2 text-xs text-[var(--color-fg-muted)]">المشاريع</div>
+              <div className="px-4 py-2 text-xs text-[var(--a3-text-secondary)]">المشاريع</div>
               {results.projects.map((pr: any) => (
                 <Link key={pr.id} href={`/projects/${pr.id}`} onClick={() => setOpen(false)}>
-                  <div className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
+                  <div className="flex items-center gap-3 px-4 py-2 hover:bg-[var(--a3-background)]">
                     <FileText size={16} />
                     <div className="flex flex-col">
                       <span className="text-sm">{pr.title}</span>
-                      <span className="text-xs text-[var(--color-fg-muted)]">{pr.status}</span>
+                      <span className="text-xs text-[var(--a3-text-secondary)]">{pr.status}</span>
                     </div>
                   </div>
                 </Link>
@@ -198,14 +196,14 @@ export default function GlobalCommand() {
           {/* المهام */}
           {results.tasks.length > 0 && (
             <>
-              <div className="px-4 py-2 text-xs text-[var(--color-fg-muted)]">المهام</div>
+              <div className="px-4 py-2 text-xs text-[var(--a3-text-secondary)]">المهام</div>
               {results.tasks.map((t: any) => (
                 <Link key={t.id} href={`/tasks/${t.id}`} onClick={() => setOpen(false)}>
-                  <div className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
+                  <div className="flex items-center gap-3 px-4 py-2 hover:bg-[var(--a3-background)]">
                     <FileText size={16} />
                     <div className="flex flex-col">
                       <span className="text-sm">{t.title}</span>
-                      <span className="text-xs text-[var(--color-fg-muted)]">{t.priority}</span>
+                      <span className="text-xs text-[var(--a3-text-secondary)]">{t.priority}</span>
                     </div>
                   </div>
                 </Link>
@@ -216,14 +214,14 @@ export default function GlobalCommand() {
           {/* المستخدمين */}
           {results.users.length > 0 && (
             <>
-              <div className="px-4 py-2 text-xs text-[var(--color-fg-muted)]">المستخدمين</div>
+              <div className="px-4 py-2 text-xs text-[var(--a3-text-secondary)]">المستخدمين</div>
               {results.users.map((u: any) => (
                 <Link key={u.id} href={`/users/${u.id}`} onClick={() => setOpen(false)}>
-                  <div className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
+                  <div className="flex items-center gap-3 px-4 py-2 hover:bg-[var(--a3-background)]">
                     <User size={16} />
                     <div className="flex flex-col">
                       <span className="text-sm">{u.name}</span>
-                      <span className="text-xs text-[var(--color-fg-muted)]">{u.role}</span>
+                      <span className="text-xs text-[var(--a3-text-secondary)]">{u.role}</span>
                     </div>
                   </div>
                 </Link>
@@ -232,7 +230,7 @@ export default function GlobalCommand() {
           )}
 
         </div>
-      </div>
+      </Card>
     </div>,
     document.body
   );

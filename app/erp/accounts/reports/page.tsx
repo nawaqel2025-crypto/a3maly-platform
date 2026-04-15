@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Card from "@/components/ui/card";
 
 const reports = [
   { icon: "📊", label: "الميزانية العمومية", href: "/erp/accounts/reports/balance-sheet" },
@@ -15,8 +16,8 @@ const reports = [
 
 export default function ReportsPage() {
   return (
-    <div className="space-y-8">
-      <h1 className="text-3xl font-bold text-[var(--color-fg)]">
+    <div className="space-y-8" dir="rtl">
+      <h1 className="text-[24px] font-bold text-[var(--a3-text-primary)]">
         التقارير المحاسبية
       </h1>
 
@@ -25,18 +26,12 @@ export default function ReportsPage() {
           <Link
             key={r.href}
             href={r.href}
-            className="
-              p-4 border rounded-lg bg-[var(--color-bg)]
-              border-[var(--color-border)] hover:bg-[var(--color-bg-muted)]
-              transition duration-150 flex flex-col items-center gap-2
-            "
+            className="block"
           >
-            <span className="text-xl">{r.icon}</span>
-
-            {/* ←← التعديل هنا: خط واضح وقوي */}
-            <span className="text-sm font-semibold text-[var(--color-fg)] opacity-90">
-              {r.label}
-            </span>
+            <Card className="flex flex-col items-center gap-2 p-4 transition hover:bg-[var(--a3-background)]">
+              <span className="text-xl">{r.icon}</span>
+              <span className="text-sm font-semibold text-[var(--a3-text-primary)] opacity-90">{r.label}</span>
+            </Card>
           </Link>
         ))}
       </div>

@@ -1,3 +1,6 @@
+import Link from "next/link";
+import Card from "@/components/ui/card";
+
 export default function ERPModules() {
   const modules = [
     { name: "الحسابات", path: "/erp/accounts" },
@@ -15,19 +18,21 @@ export default function ERPModules() {
   ];
 
   return (
-    <div className="p-10">
-      <h1 className="text-4xl font-bold mb-10 text-right">A3MALY ERP — الوحدات الأساسية</h1>
+    <div className="p-10" dir="rtl">
+      <h1 className="mb-10 text-right text-[32px] font-bold text-[var(--a3-text-primary)]">A3MALY ERP — الوحدات الأساسية</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {modules.map((m) => (
-          <a
+          <Link
             key={m.path}
             href={m.path}
-            className="p-6 rounded-xl border bg-white hover:bg-gray-50 shadow-sm hover:shadow-md transition cursor-pointer text-right"
+            className="block"
           >
-            <h2 className="text-xl font-semibold">{m.name}</h2>
-            <p className="text-gray-500 mt-2">الدخول إلى وحدة {m.name}</p>
-          </a>
+            <Card className="cursor-pointer text-right transition hover:bg-[var(--a3-background)]">
+              <h2 className="text-[20px] font-semibold">{m.name}</h2>
+              <p className="mt-2 text-[14px] text-[var(--a3-text-secondary)]">الدخول إلى وحدة {m.name}</p>
+            </Card>
+          </Link>
         ))}
       </div>
     </div>

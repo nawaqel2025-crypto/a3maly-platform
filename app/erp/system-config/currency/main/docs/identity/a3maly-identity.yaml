@@ -1,0 +1,99 @@
+identity:
+  version: 1.0
+  name: "A3MALY Design Language"
+  description: >
+    الهوية الرسمية لمنصّة أعمالي. تعتمد على تصميم حديث، بسيط، واضح،
+    مع مكوّنات قابلة لإعادة الاستخدام، وتناسق كامل بين جميع الوحدات.
+
+design_system:
+  colors:
+    primary: "#2563EB"        # أزرق أعمالي
+    primary_dark: "#1E40AF"
+    secondary: "#0F172A"      # كحلي داكن
+    background: "#F8FAFC"     # خلفية فاتحة
+    surface: "#FFFFFF"
+    border: "#E2E8F0"
+    text_primary: "#0F172A"
+    text_secondary: "#475569"
+    success: "#10B981"
+    warning: "#F59E0B"
+    danger: "#EF4444"
+
+  typography:
+    font_family: "Inter"
+    sizes:
+      h1: 32
+      h2: 24
+      h3: 20
+      body: 16
+      small: 14
+    weights:
+      regular: 400
+      medium: 500
+      semibold: 600
+      bold: 700
+
+  spacing:
+    xs: 4
+    sm: 8
+    md: 16
+    lg: 24
+    xl: 32
+
+  layout:
+    sidebar_width: 260
+    header_height: 64
+    container_max_width: 1440
+    border_radius: 8
+    card_padding: 20
+
+  components:
+    button:
+      radius: 8
+      sizes:
+        sm: { padding: "6px 12px", font: 14 }
+        md: { padding: "8px 16px", font: 16 }
+        lg: { padding: "12px 20px", font: 18 }
+      variants:
+        primary:
+          background: "#2563EB"
+          text: "#FFFFFF"
+        secondary:
+          background: "#E2E8F0"
+          text: "#0F172A"
+        outline:
+          border: "#2563EB"
+          text: "#2563EB"
+
+    card:
+      background: "#FFFFFF"
+      radius: 12
+      padding: 20
+      shadow: "0 2px 8px rgba(0,0,0,0.05)"
+
+    table:
+      header:
+        background: "#F1F5F9"
+        text: "#0F172A"
+        height: 48
+      row:
+        height: 44
+        hover: "#F8FAFC"
+      border_color: "#E2E8F0"
+
+    form:
+      input:
+        height: 42
+        radius: 8
+        border: "#E2E8F0"
+        focus_border: "#2563EB"
+      label:
+        font_size: 14
+        color: "#475569"
+
+rules:
+  enforce_identity: true
+  remove_non_matching_components: true
+  refactor_old_ui: true
+  rebuild_legacy_logic: true
+  auto_generate_tasks: true

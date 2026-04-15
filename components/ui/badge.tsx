@@ -18,11 +18,11 @@ export default function Badge({
   ...props
 }: BadgeProps) {
   const variantMap = {
-    success: "bg-[var(--color-success)]/15 text-[var(--color-success)]",
-    warning: "bg-[var(--color-warning)]/15 text-[var(--color-warning)]",
-    danger: "bg-[var(--color-danger)]/15 text-[var(--color-danger)]",
-    info: "bg-blue-500/15 text-blue-500",
-    neutral: "bg-[var(--color-bg-muted)] text-[var(--color-fg-muted)]",
+    success: "bg-[var(--a3-success)]/15 text-[var(--a3-success)]",
+    warning: "bg-[var(--a3-warning)]/15 text-[var(--a3-warning)]",
+    danger: "bg-[var(--a3-danger)]/15 text-[var(--a3-danger)]",
+    info: "bg-[var(--a3-info)]/15 text-[var(--a3-info)]",
+    neutral: "bg-[var(--a3-border)] text-[var(--a3-text-secondary)]",
   };
 
   const sizeMap = {

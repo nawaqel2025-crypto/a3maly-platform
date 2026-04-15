@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
+import Card from "@/components/ui/card";
+import Input from "@/components/ui/input";
+import Button from "@/components/ui/button";
 
 type Branch = {
   id: number;
@@ -52,34 +55,20 @@ export default function BranchesPage() {
   };
 
   return (
-    <div className="space-y-8">
-      <h1 className="text-3xl font-bold text-[var(--color-fg)]">
+    <div className="space-y-8" dir="rtl">
+      <h1 className="text-[24px] font-bold text-[var(--a3-text-primary)]">
         الفروع
       </h1>
 
-      {/* إضافة فرع */}
-      <div className="p-5 border rounded-lg bg-[var(--color-bg)] border-[var(--color-border)] space-y-4 max-w-xl">
-        <h2 className="text-lg font-semibold">إضافة فرع جديد</h2>
+      <Card className="max-w-xl space-y-4">
+        <h2 className="text-[20px] font-semibold">إضافة فرع جديد</h2>
 
         <div className="space-y-3">
-          <input
-            type="text"
-            placeholder="اسم الفرع"
-            className="w-full p-2 rounded border border-[var(--color-border)] bg-[var(--color-bg)]"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-
-          <input
-            type="text"
-            placeholder="كود الفرع"
-            className="w-full p-2 rounded border border-[var(--color-border)] bg-[var(--color-bg)]"
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-          />
+          <Input type="text" placeholder="اسم الفرع" value={name} onChange={(e) => setName(e.target.value)} />
+          <Input type="text" placeholder="كود الفرع" value={code} onChange={(e) => setCode(e.target.value)} />
 
           <select
-            className="w-full p-2 rounded border border-[var(--color-border)] bg-[var(--color-bg)]"
+            className="min-h-[42px] w-full rounded-[8px] border border-[var(--a3-border)] bg-[var(--a3-surface)] px-3"
             value={currency}
             onChange={(e) => setCurrency(e.target.value)}
           >
@@ -89,19 +78,13 @@ export default function BranchesPage() {
             <option value="EGP">EGP — جنيه</option>
           </select>
 
-          <button
-            onClick={addBranch}
-            className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 transition"
-          >
-            إضافة الفرع
-          </button>
+          <Button onClick={addBranch}>إضافة الفرع</Button>
         </div>
-      </div>
+      </Card>
 
-      {/* قائمة الفروع */}
-      <div className="border rounded-lg overflow-hidden max-w-3xl">
+      <div className="max-w-3xl overflow-hidden rounded-[12px] border border-[var(--a3-border)]">
         <table className="w-full text-sm">
-          <thead className="bg-[var(--color-bg-muted)] text-[var(--color-fg)]">
+          <thead className="bg-[#F1F5F9] text-[var(--a3-text-primary)]">
             <tr>
               <th className="p-2 text-right">الكود</th>
               <th className="p-2 text-right">اسم الفرع</th>
@@ -111,7 +94,7 @@ export default function BranchesPage() {
 
           <tbody>
             {branches.map((b) => (
-              <tr key={b.id} className="border-t border-[var(--color-border)]">
+              <tr key={b.id} className="border-t border-[var(--a3-border)] hover:bg-[var(--a3-background)]">
                 <td className="p-2">{b.code}</td>
                 <td className="p-2">{b.name}</td>
                 <td className="p-2">{b.currency}</td>
